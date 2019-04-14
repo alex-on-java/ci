@@ -4,4 +4,16 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker build --tag=ci .
+      - restore_cache:
+          keys:
+            - mvn-dependencies-{{ checksum "backend/pom.xml" }}
+      - run: docker run -v /tmp/.m2:/root/.m2 --read-only -v `pwd`/backend:/app circleci/openjdk:9.0.4 mvn -f /app/pom.xml dependency:go-offline
+      - save_cache:
+          paths:
+            - /tmp/.m2
+          key: mvn-dependencies-{{ checksum "pom.xml" }}
+      - run: docker run -v /tmp/.m2:/root/.m2 -v `pwd`/backend:/app circleci/openjdk:9.0.4 mvn -f /app/pom.xml package
+      - store_test_results:
+          path: backend/target/surefire-reports
+      - store_artifacts:
+          path: backend/target/calculator-0.0.1-SNAPSHOT.jar
