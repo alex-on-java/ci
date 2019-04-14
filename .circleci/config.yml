@@ -11,7 +11,7 @@ jobs:
       - save_cache:
           paths:
             - /tmp/.m2
-          key: mvn-dependencies-{{ checksum "pom.xml" }}
+          key: mvn-dependencies-{{ checksum "backend/pom.xml" }}
       - run: docker run -v /tmp/.m2:/root/.m2 -v `pwd`/backend:/app maven:3.5.3-jdk-8-alpine  mvn -f /app/pom.xml package
       - store_test_results:
           path: backend/target/surefire-reports
