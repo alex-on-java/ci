@@ -16,12 +16,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureEmbeddedDatabase
-public class HealthCheckIntegrationTest {
+public class SampleIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
     @Test
-    void test_returnOkForHealthCheck() throws Exception {
-        mvc.perform(get("/health")).andExpect(status().isOk());
+    void test_returnOkForCount() throws Exception {
+        mvc.perform(get("/samples/count")).andExpect(status().isOk());
     }
+
 }
