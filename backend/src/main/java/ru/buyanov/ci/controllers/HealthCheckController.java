@@ -1,4 +1,4 @@
-package ru.buyanov.investment.calculator.controllers;
+package ru.buyanov.ci.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

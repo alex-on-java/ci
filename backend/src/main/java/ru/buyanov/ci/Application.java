@@ -1,4 +1,4 @@
-package ru.buyanov.investment.calculator;
+package ru.buyanov.ci;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

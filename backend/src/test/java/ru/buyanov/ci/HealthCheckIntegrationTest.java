@@ -1,4 +1,4 @@
-package ru.buyanov.investment.calculator.integration;
+package ru.buyanov.ci;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
