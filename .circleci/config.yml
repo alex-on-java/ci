@@ -9,7 +9,8 @@ jobs:
             - mvn-dependencies-{{ checksum "backend/pom.xml" }}
             - mvn-dependencies-
       - run: docker build -t maven-build-image -f build.Dockerfile .
-      - run: docker run --rm -v /tmp/.m2:/root/.m2 -v `pwd`/backend:/build maven-build-image
+      - run: chmod -R 777 backend/
+      - run: docker run --rm -v /tmp/.m2:/nonroot/.m2 -v `pwd`/backend:/build maven-build-image
       - save_cache:
           paths:
             - /tmp/.m2
