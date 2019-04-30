@@ -22,6 +22,6 @@ public class HealthCheckIntegrationTest {
 
     @Test
     void test_returnOkForHealthCheck() throws Exception {
-        mvc.perform(get("/health")).andExpect(status().isNotFound());
+        mvc.perform(get("/health")).andExpect(status().isOk());
     }
 }
