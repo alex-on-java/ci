@@ -11,9 +11,7 @@ jobs:
       - run: docker build -t maven-build-image -f build.Dockerfile .
       - run: mkdir -p /tmp/.m2 && chmod -R 777 /tmp/.m2
       - run: rm -rf backend/target && mkdir -p backend/target && chmod -R 777 backend/target
-      - run: docker run --rm -v /tmp/.m2:/home/nonroot/.m2 -v `pwd`/backend/target:/build/target -e MVN_COMMAND=compile maven-build-image
-      - run: docker run --rm -v /tmp/.m2:/home/nonroot/.m2 -v `pwd`/backend/target:/build/target -e MVN_COMMAND=test maven-build-image
-      - run: docker run --rm -v /tmp/.m2:/home/nonroot/.m2 -v `pwd`/backend/target:/build/target -e MVN_COMMAND="package -Dmaven.test.skip=true" maven-build-image
+      - run: docker run --rm -v /tmp/.m2:/home/nonroot/.m2 -v `pwd`/backend/target:/build/target maven-build-image
       - save_cache:
           paths:
             - /tmp/.m2
