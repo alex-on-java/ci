@@ -8,5 +8,6 @@ USER nonroot
 
 COPY backend .
 
-ENTRYPOINT ["mvn"]
-CMD ["package"]
+ENV MVN_COMMAND=package
+
+CMD mvn $MVN_COMMAND
