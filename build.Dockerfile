@@ -6,5 +6,7 @@ RUN addgroup -S gr && adduser -S nonroot -G gr
 RUN chown nonroot .
 USER nonroot
 
+COPY backend .
+
 ENTRYPOINT ["mvn"]
 CMD ["package"]
