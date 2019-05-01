@@ -18,5 +18,4 @@ jobs:
           key: mvn-dependencies-1-{{ checksum "backend/pom.xml" }}
       - store_test_results:
           path: backend/target/surefire-reports
-      - store_artifacts:
-          path: backend/target/ci-test-0.0.1-SNAPSHOT.jar
+      - run: ./test-compose.sh
