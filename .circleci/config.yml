@@ -18,4 +18,5 @@ jobs:
           key: mvn-dependencies-1-{{ checksum "backend/pom.xml" }}
       - store_test_results:
           path: backend/target/surefire-reports
+      - run: docker build -t sample-backend .
       - run: ./test-compose.sh
