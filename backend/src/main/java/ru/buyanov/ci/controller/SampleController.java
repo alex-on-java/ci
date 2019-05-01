@@ -1,19 +1,10 @@
 package ru.buyanov.ci.controller;
 
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.buyanov.ci.repository.SampleRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import ru.buyanov.ci.model.Sample;
 
-@RestController
-@RequestMapping("samples")
-@AllArgsConstructor
-public class SampleController {
-    private final SampleRepository repository;
+@RepositoryRestResource(collectionResourceRel = "samples", path = "samples")
+public interface SampleController extends CrudRepository<Sample, Integer> {
 
-    @RequestMapping("count")
-    public ResponseEntity<Long> samplesCount() {
-        return ResponseEntity.ok(repository.count());
-    }
 }

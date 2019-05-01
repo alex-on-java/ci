@@ -8,8 +8,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -21,8 +25,19 @@ public class SampleIntegrationTest {
     private MockMvc mvc;
 
     @Test
-    void test_returnOkForCount() throws Exception {
-        mvc.perform(get("/samples/count")).andExpect(status().isOk());
+    void test_returnOkFoList() throws Exception {
+        mvc.perform(get("/samples")).andExpect(status().isOk());
+    }
+
+    @Test
+    void test_createSample() throws Exception {
+        MockHttpServletRequestBuilder request = post("/samples")
+                .contentType("application/json")
+                .content("{ \"name\": \"sample name\" }");
+
+        mvc.perform(request)
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", endsWith("/samples/1")));
     }
 
 }
