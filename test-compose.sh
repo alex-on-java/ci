@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-printf "\n127.0.0.1    backend.sample.buyanov.ru" | sudo tee -a /etc/hosts
 docker-compose up -d
 sleep 30
 FIRST_LINE=$(curl -I -X GET http://backend.sample.buyanov.ru:1080/health | head -n 1)
