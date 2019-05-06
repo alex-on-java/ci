@@ -18,8 +18,9 @@ jobs:
           key: mvn-dependencies-1-{{ checksum "backend/pom.xml" }}
       - store_test_results:
           path: backend/target/surefire-reports
-      - run: docker build -t sample-backend -t registry.buyanov.ru/sample-backend .
-      - run: printf "\n127.0.0.1    backend.sample.buyanov.ru" | sudo tee -a /etc/hosts
+      - run: docker build -t sample-backend -t $REGISTRY_DOMAIN/sample-backend .
+      - run: docker build -t sample-lb --build-arg BACKEND_DOMAIN_VALUE=backend.sample.$DOMAIN .
+      - run: printf "\n127.0.0.1    backend.sample.$DOMAIN" | sudo tee -a /etc/hosts
       - run: ./test-compose.sh
-      - run: docker login --username registry_user --password $DOCKER_REGISTRY_PASSWORD registry.buyanov.ru
-      - run: docker push registry.buyanov.ru/sample-backend
+      - run: docker login --username registry_user --password $DOCKER_REGISTRY_PASSWORD $REGISTRY_DOMAIN
+      - run: docker push $REGISTRY_DOMAIN/sample-backend

@@ -4,9 +4,7 @@ services:
     load-balancer:
         depends_on:
           - sample-backend
-        image: nginx
-        volumes:
-           - ./nginx.conf:/etc/nginx/nginx.conf
+        image: sample-lb
         ports:
             - 1080:80
         restart: always
