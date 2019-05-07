@@ -19,7 +19,7 @@ jobs:
       - store_test_results:
           path: backend/target/surefire-reports
       - run: docker build -t sample-backend -t $REGISTRY_DOMAIN/sample-backend .
-      - run: docker build -t sample-lb --build-arg BACKEND_DOMAIN_VALUE=backend.sample.$DOMAIN .
+      - run: docker build -t sample-lb -f lb/Dockerfile --build-arg BACKEND_DOMAIN_VALUE=backend.sample.$DOMAIN ./lb
       - run: printf "\n127.0.0.1    backend.sample.$DOMAIN" | sudo tee -a /etc/hosts
       - run: ./test-compose.sh
       - run: docker login --username registry_user --password $DOCKER_REGISTRY_PASSWORD $REGISTRY_DOMAIN
