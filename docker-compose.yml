@@ -1,26 +1,36 @@
 version: '2'
 
 services:
-    load-balancer:
+    sample-load-balancer:
         depends_on:
           - sample-backend
         image: sample-lb
         ports:
             - 1080:80
+        networks:
+          - lb_main-net
         restart: always
 
     sample-backend:
         depends_on:
-          - db
+          - sample-db
         image: sample-backend
         ports:
           - 8080:8080
         environment:
-          - POSTGRES_HOST=db
+          - POSTGRES_HOST=sample-db
+        networks:
+          - lb_main-net
         restart: always
 
-    db:
+    sample-db:
         image: postgres:9.6
         restart: always
         volumes:
           - /tmp/sample-db-data:/var/lib/postgresql/data
+        networks:
+          - lb_main-net
+
+networks:
+    lb_main-net:
+        external: true
