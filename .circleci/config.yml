@@ -21,7 +21,7 @@ jobs:
       - run: docker build -t sample-backend -t $REGISTRY_DOMAIN/sample-backend .
       - run: docker build -t sample-lb -t $REGISTRY_DOMAIN/sample-lb -f lb/Dockerfile --build-arg BACKEND_DOMAIN_VALUE=backend.sample.$DOMAIN ./lb
       - run: docker build -t sample-integration-test -f integration-test/Dockerfile --build-arg BACKEND_DOMAIN_VALUE=backend.sample.$DOMAIN integration-test/
-      - run: { sleep 2 && docker-compose up -d; } & docker-compose -f integration-test/lb/docker-compose.yml up --abort-on-container-exit || docker-compose logs && exit 1
+      - run: { { sleep 2 && docker-compose up -d; } & docker-compose -f integration-test/lb/docker-compose.yml up --abort-on-container-exit || docker-compose logs && exit 1; }
       - run: docker login --username registry_user --password $DOCKER_REGISTRY_PASSWORD $REGISTRY_DOMAIN
       - run: docker push $REGISTRY_DOMAIN/sample-backend
       - run: docker push $REGISTRY_DOMAIN/sample-lb
