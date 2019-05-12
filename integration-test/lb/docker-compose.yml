@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  sample-integration-test:
+    image: sample-integration-test
+    networks:
+      - main-net
+
+networks:
+  main-net:
+    driver: bridge
