@@ -47,7 +47,7 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  build_test_and_push_artifacts:
     jobs:
       - build
       - integration-test:
@@ -55,6 +55,7 @@ workflows:
             - build
       - push-artifacts:
           requires:
+            - build
             - integration-test
           filters:
             branches:
