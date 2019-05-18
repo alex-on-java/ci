@@ -50,13 +50,13 @@ workflows:
   build_test_and_push_artifacts:
     jobs:
       - build
-      - integration-test:
-          requires:
-            - build
+#      - integration-test:
+#          requires:
+#            - build
       - push-artifacts:
           requires:
             - build
-            - integration-test
+#            - integration-test
           filters:
             branches:
               only: master
