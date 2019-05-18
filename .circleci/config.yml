@@ -18,7 +18,9 @@ jobs:
           key: mvn-dependencies-2-{{ checksum "backend/pom.xml" }}
       - store_test_results:
           path: backend/target/surefire-reports
-      - run: docker build -t sample-backend -t $REGISTRY_DOMAIN/sample-backend .
+      - run:
+          name: Build backend docker image
+          command: docker build -t sample-backend -t $REGISTRY_DOMAIN/sample-backend .
       - run: docker build -t sample-lb -t $REGISTRY_DOMAIN/sample-lb -f lb/Dockerfile --build-arg BACKEND_DOMAIN_VALUE=backend.sample.$DOMAIN ./lb
       - run: docker build -t sample-integration-test -f integration-test/Dockerfile --build-arg BACKEND_DOMAIN_VALUE=backend.sample.$DOMAIN integration-test/
       - run:
