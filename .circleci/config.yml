@@ -6,8 +6,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - mvn-dependencies-1-{{ checksum "backend/pom.xml" }}
-            - mvn-dependencies-1-
+            - mvn-dependencies-2-{{ checksum "backend/pom.xml" }}
+            - mvn-dependencies-2-
       - run: docker build -t maven-build-image -f build.Dockerfile .
       - run: mkdir -p $HOME/.m2 && chmod -R 777 $HOME/.m2
       - run: rm -rf backend/target && mkdir -p backend/target && chmod -R 777 backend/target
@@ -15,7 +15,7 @@ jobs:
       - save_cache:
           paths:
             - $HOME/.m2
-          key: mvn-dependencies-1-{{ checksum "backend/pom.xml" }}
+          key: mvn-dependencies-2-{{ checksum "backend/pom.xml" }}
       - store_test_results:
           path: backend/target/surefire-reports
       - run: docker build -t sample-backend -t $REGISTRY_DOMAIN/sample-backend .
