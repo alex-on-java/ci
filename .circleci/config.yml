@@ -44,8 +44,8 @@ jobs:
       - run:
           name: Copy docker-compose file
           command: |
-            scp docker-compose.yml $DEPLOY_USER_NAME@$DEPLOY_HOST_NAME:/home/lb/
+            scp docker-compose.yml $DEPLOY_USER_NAME@$DEPLOY_HOST_NAME:/home/sample/
       - run:
           name: Restart
           command: |
-            ssh $DEPLOY_USER_NAME@$DEPLOY_HOST_NAME "cd /home/lb/ && docker-compose down --remove-orphans && docker-compose up -d"
+            ssh $DEPLOY_USER_NAME@$DEPLOY_HOST_NAME "cd /home/sample/ && docker-compose down --remove-orphans && docker-compose up -d"
