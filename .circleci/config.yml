@@ -42,6 +42,10 @@ jobs:
           fingerprints:
             - "x88J59qv2q48OLyRIxdZPj+s8OYN/ahj0LR4VnwfGXU"
       - run:
-          name: Test ssh connection
+          name: Copy docker-compose file
           command: |
-            ssh $DEPLOY_USER_NAME@$DEPLOY_HOST_NAME "echo 1 > test.txt"
+            scp docker-compose.yml $DEPLOY_USER_NAME@$DEPLOY_HOST_NAME:/home/lb/
+      - run:
+          name: Restart
+          command: |
+            ssh $DEPLOY_USER_NAME@$DEPLOY_HOST_NAME "docker-compose down --remove-orphans && docker-compose up -d"
