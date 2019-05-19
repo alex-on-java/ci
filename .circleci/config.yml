@@ -48,4 +48,4 @@ jobs:
       - run:
           name: Restart
           command: |
-            ssh $DEPLOY_USER_NAME@$DEPLOY_HOST_NAME "docker-compose down --remove-orphans && docker-compose up -d"
+            ssh $DEPLOY_USER_NAME@$DEPLOY_HOST_NAME "cd /home/lb/ && docker-compose down --remove-orphans && docker-compose up -d"
